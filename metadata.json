@@ -1,0 +1,6 @@
+{
+  "name": "Lumière d'Arche — Cosmétiques & soins, Paris",
+  "description": "Boutique de cosmétiques parisienne : sérums, crèmes, soins lèvres, rituels corps et parfums sous nos arches lumineuses.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

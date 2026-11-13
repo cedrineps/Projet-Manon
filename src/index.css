@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --color-background: #faf7f5;
+  --color-foreground: #22191c;
+  --color-card: #ffffff;
+  --color-card-foreground: #22191c;
+  --color-secondary: #f3eae6;
+  --color-secondary-foreground: #22191c;
+  --color-muted: #f5efec;
+  --color-muted-foreground: #6b585e;
+  --color-primary: #a33d55;
+  --color-primary-foreground: #ffffff;
+  --color-border: rgba(34, 25, 28, 0.1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: var(--font-display);
+  }
+}
+
+.arch-frame {
+  border-radius: 999px 999px 14px 14px;
+}
+
+.neon-text {
+  text-shadow:
+    0 0 28px rgba(217, 134, 155, 0.28),
+    0 1px 2px rgba(34, 25, 28, 0.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
