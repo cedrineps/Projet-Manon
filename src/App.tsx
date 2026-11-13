@@ -18,7 +18,11 @@ import { DiagnosticView } from './components/DiagnosticView';
 const STORAGE_KEY = 'lumiere_darche_cart_v1';
 
 export default function App() {
-  const [activeView, setActiveView] = useState<'shop' | 'diagnostic'>('shop');
+  const [activeView, setActiveView] = useState<'shop' | 'diagnostic'>(() =>
+    typeof window !== 'undefined' && window.location.pathname === '/diagnostic'
+      ? 'diagnostic'
+      : 'shop'
+  );
   const [activeRayonFilter, setActiveRayonFilter] = useState<RayonId | 'all'>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -67,6 +71,16 @@ export default function App() {
       // Ignore storage write errors in restricted environments
     }
   }, [cartItems]);
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setActiveView(
+        window.location.pathname === '/diagnostic' ? 'diagnostic' : 'shop'
+      );
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -133,6 +147,10 @@ export default function App() {
 
   const handleNavigateView = (view: 'shop' | 'diagnostic', sectionId?: RayonId) => {
     setActiveView(view);
+    const targetPath = view === 'diagnostic' ? '/diagnostic' : '/';
+    if (window.location.pathname !== targetPath) {
+      window.history.pushState({}, '', targetPath);
+    }
     if (view === 'diagnostic') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
